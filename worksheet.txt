@@ -1,0 +1,56 @@
+Step 1 :- Create App on linkedin
+------------------------------------------------------------------
+Step 2 :- Authorization Endpoint (browser)
+ what we need 
+  - scope= r_liteprofile%20r_emailaddress (taken from linkedin document)
+  - state = 654543452 (random number or string)
+  - client_id = <from app>
+  - redirect_uri 
+
+  - https://www.linkedin.com/oauth/v2/authorization
+  ?response_type=code
+  &state=654543452
+  &scope=r_liteprofile%20r_emailaddress
+  &client_id=86ftg6210chpct
+  &redirect_uri=https%3A%2F%2Fwww.google.com%2F
+
+O/P:
+    https://www.google.com/?
+    code=AQSzNtZW6YAoejkDQj5vsn2APsyHoJx8secreatPWjz2q7N9rXXV-_2ao6XByDzxLofTB15x2MSRAxz6vjN-qf9co2JH3VjCWUNN-DL4GtmO372UW6cDmabakTnwoxEd80tJj1Q74ax0FRfMS6fIib34erbYSRT4ghbVqJYSyaPWpRm6nYeKlFw4n9u9p-QoHnpxw
+    &state=654543452
+
+-------------    
+Step 3: use code to get Access_Token.
+
+curl -ik -X POST https://www.linkedin.com/oauth/v2/accessToken \
+-d grant_type=authorization_code \
+-d code=AQSzNtZW6YAoejkDQj5vsn2APsyHoJx8PWjz2q7N9rXXV-_2ao6XByDzxLofTB15x2MSRAxz6vjN-qf9co2JH3VjCWUNN-DL4GtmO372UW6cDmabakTnwoxEd80tJj1Q74ax0FRfMS6fIib34erbYSRT4ghbVqJYSyaPWpRm6nYeKlFw4n9u9p-QoHnpxw \
+-d redirect_uri=https%3A%2F%2Fwww.google.com%2F \
+-d client_id=86ftg6210chpct \
+-d client_secret=TyKsNyHF4fvNXvrp
+
+O/P:
+Access_token
+{
+  "access_token":"AQVO4KzDrfM0DBjfbe5lz_DwQwXT7MzsRAdWlkEEsZ-bxpy1mG22ZR8xqWnlC6KD4tWo6WLAZPkMaO0t5-J6zVSB_rW5m34FOQEbHd5I1Vh5efDJMI7z82f9MCqM0Vtf2xKX1TbRLt2uPtVu-jQEs0gOba3e9J8ZQid7QfnisgOf4aUzg9IjJ06g8iJtywldYss_2QeD1OHaYTta8EoOwQpFqWIjEkwj4gIM0RWiUkKlhdqpMSh1Lm-9RT8ksMR_PzdemxnsUrA-e4G4Ypr98lrzL--T06F-zlwO1cL_jJt9nl6QIzQI5dm6kN7bn5mjjOy7IMSmNDQArS6VKEkkgswlWJ6d-A",
+  "expires_in":5183999
+}
+
+--------------------------------------
+Step 4: Access Resource on the basis of URL (https://docs.microsoft.com/en-gb/linkedin/consumer/integrations/self-serve/sign-in-with-linkedin)
+
+Resource Access:
+ curl https://api.linkedin.com/v2/me -H "Authorization: Bearer <token>"
+
+ curl https://api.linkedin.com/v2/me -H "Authorization: Bearer AQVO4KzDrfM0DBjfbe5lz_DwQwXT7MzsRAdWlkEEsZ-bxpy1mG22ZR8xqWnlC6KD4tWo6WLAZPkMaO0t5-J6zVSB_rW5m34FOQEbHd5I1Vh5efDJMI7z82f9MCqM0Vtf2xKX1TbRLt2uPtVu-jQEs0gOba3e9J8ZQid7QfnisgOf4aUzg9IjJ06g8iJtywldYss_2QeD1OHaYTta8EoOwQpFqWIjEkwj4gIM0RWiUkKlhdqpMSh1Lm-9RT8ksMR_PzdemxnsUrA-e4G4Ypr98lrzL--T06F-zlwO1cL_jJt9nl6QIzQI5dm6kN7bn5mjjOy7IMSmNDQArS6VKEkkgswlWJ6d-A"
+
+ o/P: {
+        "localizedLastName":"Vishwakarma",
+        "profilePicture":{
+            "displayImage":"urn:li:digitalmediaAsset:C5103AQEpSrxAUr6_uw"},
+            "firstName":{
+                "localized":{"en_US":"Anchal"},
+                "preferredLocale":{"country":"US","language":"en"}},
+                "lastName":{"localized":{"en_US":"Vishwakarma"},
+                "preferredLocale":{"country":"US","language":"en"}},
+                "id":"lpQy48cC34","localizedFirstName":"Anchal"}
