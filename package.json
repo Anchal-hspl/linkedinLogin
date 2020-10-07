@@ -1,0 +1,27 @@
+{
+  "name": "linkedinpoc2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prod":"npm install; npm run build:lambda",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:lambda": "netlify-lambda serve functions",
+    "build:lambda": "netlify-lambda build functions"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anchal-hspl/linkedinLogin.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anchal-hspl/linkedinLogin/issues"
+  },
+  "homepage": "https://github.com/Anchal-hspl/linkedinLogin#readme",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "netlify-lambda": "^2.0.1",
+    "request": "^2.88.2"
+  }
+}
